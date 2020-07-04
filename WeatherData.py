@@ -9,10 +9,10 @@ class WeatherData:
         self.key = key
     
 
-    def getData():
-        resp = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + self.latitude + '&lon=' + longitude + '&appid='+ key)
+    def getData(self):
+        resp = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + self.latitude + '&lon=' + self.longitude + '&appid='+ self.key)
 
-        with resp as json_file:
-            data = json.load(json_file)
-            print (data['current']['temp'])
+        data = json.loads(resp.text)
+        current = data['current']['temp']
+        print(current - 273.15)
     
