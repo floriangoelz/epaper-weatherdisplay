@@ -72,8 +72,8 @@ try:
 
         logging.info("3.read bmp file")
         iconbmp = Image.open(os.path.join(iconsdir, icons[currentWeather.currentIcon] + '.bmp'))
-        Himage.paste(iconbmp, (5, 30))
-        epd.display(epd.getbuffer(Himage))
+        Limage.paste(iconbmp, (5, 30))
+        epd.display(epd.getbuffer(Limage))
         time.sleep(1800)
     
     
