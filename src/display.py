@@ -8,6 +8,7 @@ import sys
 import os
 iconsdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'icons')
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
+fontdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'fonts')
 if os.path.exists(libdir):
     sys.path.append(libdir)
 
@@ -27,8 +28,8 @@ try:
     epd.init()
     epd.Clear()
     
-    font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
-    font18 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 18)
+    font24 = ImageFont.truetype(os.path.join(fontdir, 'Font.ttc'), 24)
+    font18 = ImageFont.truetype(os.path.join(fontdir, 'Font.ttc'), 18)
 
     icons = {
         "01d": "clear",
