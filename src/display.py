@@ -55,7 +55,6 @@ try:
     while(1):
         
         # Drawing on the Horizontal image
-        logging.info("1.Drawing on the Horizontal image...")
         Limage = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
         draw = ImageDraw.Draw(Limage)
         
@@ -68,10 +67,7 @@ try:
         draw.text((5, 8), str(today.day) + "." + str(today.month) + "." + str(today.year), font = font18, fill = 0)
 
         #icon
-        bmpIcon = Image.open(os.path.join())
-
-
-        logging.info("3.read bmp file")
+        logging.info("read icon bmp file")
         iconbmp = Image.open(os.path.join(iconsdir, icons[currentWeather.currentIcon] + '.bmp'))
         Limage.paste(iconbmp, (5, 30))
         epd.display(epd.getbuffer(Limage))
