@@ -30,7 +30,7 @@ try:
     
     font24 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 24)
     font28 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 28)
-    font18 = ImageFont.truetype(os.path.join(fontdir, 'Font.ttc'), 18)
+    font40 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 40)
 
     icons = {
         "01d": "clear",
@@ -65,7 +65,7 @@ try:
 
         #date
         today = date.today()
-        draw.text((10, 8), str(today.day) + "." + str(today.month) + "." + str(today.year), font = font24, fill = 0)
+        draw.text((20, 15), str(today.day) + "." + str(today.month) + "." + str(today.year), font = font28, fill = 0)
 
         #icon
         logging.info("read icon bmp file")
@@ -74,9 +74,9 @@ try:
 
         #temperatures
         draw.text((250, 30), str(currentWeather.currentTemp), font = font28, fill = 0)
-        draw.text((250, 70), "Max: " + str(currentWeather.maxTemp), font = font24, fill = 0)
-        draw.text((250, 100), "Min: " + str(currentWeather.minTemp), font = font24, fill = 0)
-        draw.text((250, 130), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
+        draw.text((250, 100), "Max: " + str(currentWeather.maxTemp) + " °C", font = font24, fill = 0)
+        draw.text((250, 130), "Min: " + str(currentWeather.minTemp) + " °C", font = font24, fill = 0)
+        draw.text((250, 160), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
 
 
         epd.display(epd.getbuffer(Limage))
