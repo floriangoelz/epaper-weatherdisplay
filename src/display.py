@@ -28,7 +28,8 @@ try:
     epd.init()
     epd.Clear()
     
-    font24 = ImageFont.truetype(os.path.join(fontdir, 'Font.ttc'), 24)
+    font24 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 24)
+    font28 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 28)
     font18 = ImageFont.truetype(os.path.join(fontdir, 'Font.ttc'), 18)
 
     icons = {
@@ -64,14 +65,22 @@ try:
 
         #date
         today = date.today()
-        draw.text((5, 8), str(today.day) + "." + str(today.month) + "." + str(today.year), font = font18, fill = 0)
+        draw.text((10, 8), str(today.day) + "." + str(today.month) + "." + str(today.year), font = font24, fill = 0)
 
         #icon
         logging.info("read icon bmp file")
         iconbmp = Image.open(os.path.join(iconsdir, icons[currentWeather.currentIcon] + '.bmp'))
         Limage.paste(iconbmp, (5, 30))
+
+        #temperatures
+        draw.text((250, 30), str(currentWeather.currentTemp), font = font28, fill = 0)
+        draw.text((250, 70), "Max: " + str(currentWeather.maxTemp), font = font24, fill = 0)
+        draw.text((250, 100), "Min: " + str(currentWeather.minTemp), font = font24, fill = 0)
+        draw.text((250, 130), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
+
+
         epd.display(epd.getbuffer(Limage))
-        time.sleep(1800)
+        time.sleep(300)
     
     
 except IOError as e:
