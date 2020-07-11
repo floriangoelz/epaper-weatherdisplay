@@ -73,7 +73,7 @@ try:
         Limage.paste(iconbmp, (5, 30))
 
         #temperatures
-        draw.text((250, 30), str(currentWeather.currentTemp), font = font28, fill = 0)
+        draw.text((250, 30), str(currentWeather.currentTemp) + " °C", font = font28, fill = 0)
         draw.text((250, 100), "Max: " + str(currentWeather.maxTemp) + " °C", font = font24, fill = 0)
         draw.text((250, 130), "Min: " + str(currentWeather.minTemp) + " °C", font = font24, fill = 0)
         draw.text((250, 160), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
