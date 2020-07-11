@@ -30,7 +30,7 @@ try:
     
     font24 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 24)
     font28 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 28)
-    font40 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 40)
+    font55 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 55)
 
     icons = {
         "01d": "clear",
@@ -73,9 +73,9 @@ try:
         Limage.paste(iconbmp, (5, 30))
 
         #temperatures
-        draw.text((250, 30), str(currentWeather.currentTemp) + " °C", font = font28, fill = 0)
-        draw.text((250, 100), "Max: " + str(currentWeather.maxTemp) + " °C", font = font24, fill = 0)
-        draw.text((250, 130), "Min: " + str(currentWeather.minTemp) + " °C", font = font24, fill = 0)
+        draw.text((250, 30), str(currentWeather.currentTemp) + " C", font = font28, fill = 0)
+        draw.text((250, 100), "Max: " + str(currentWeather.maxTemp) + " C", font = font24, fill = 0)
+        draw.text((250, 130), "Min: " + str(currentWeather.minTemp) + " C", font = font24, fill = 0)
         draw.text((250, 160), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
 
 
