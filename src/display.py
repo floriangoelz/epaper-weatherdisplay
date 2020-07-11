@@ -64,8 +64,8 @@ try:
         currentWeather = weatherdata.getData()
 
         #date
-        today = date.today()
-        draw.text((20, 10), str(today.day) + "." + str(today.month) + "." + str(today.year), font = font28, fill = 0)
+        #today = date.today()
+        #draw.text((20, 10), str(today.day) + "." + str(today.month) + "." + str(today.year), font = font28, fill = 0)
 
         #icon
         logging.info("read icon bmp file")
@@ -73,10 +73,10 @@ try:
         Limage.paste(iconbmp, (5, 30))
 
         #temperatures
-        draw.text((250, 40), str(currentWeather.currentTemp) + " C", font = font55, fill = 0)
-        draw.text((250, 100), "Max: " + str(currentWeather.maxTemp) + " C", font = font24, fill = 0)
-        draw.text((250, 130), "Min: " + str(currentWeather.minTemp) + " C", font = font24, fill = 0)
-        draw.text((250, 160), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
+        draw.text((250, 30), str(currentWeather.currentTemp) + " C", font = font55, fill = 0)
+        draw.text((250, 105), "Max: " + str(currentWeather.maxTemp) + " C", font = font24, fill = 0)
+        draw.text((250, 135), "Min: " + str(currentWeather.minTemp) + " C", font = font24, fill = 0)
+        draw.text((250, 165), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
 
 
         epd.display(epd.getbuffer(Limage))
