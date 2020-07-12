@@ -61,7 +61,7 @@ try:
         
         #get current weather data
         weatherdata = WeatherData('49.591', '8.646', 'bcdf63a0553e42805e8f1111bcbd94e5')
-        currentWeather = weatherdata.getData()
+        currentWeather = weatherdata.getCurrentWeather()
 
         #date
         #today = date.today()
@@ -70,13 +70,22 @@ try:
         #icon
         logging.info("read icon bmp file")
         iconbmp = Image.open(os.path.join(iconsdir, icons[currentWeather.currentIcon] + '.bmp'))
-        Limage.paste(iconbmp, (5, 30))
+        Limage.paste(iconbmp, (5, 20))
 
         #temperatures
-        draw.text((250, 30), str(currentWeather.currentTemp) + " C", font = font55, fill = 0)
-        draw.text((250, 105), "Max: " + str(currentWeather.maxTemp) + " C", font = font24, fill = 0)
-        draw.text((250, 135), "Min: " + str(currentWeather.minTemp) + " C", font = font24, fill = 0)
-        draw.text((250, 165), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
+        draw.text((250, 30), str(currentWeather.currentTemp) + u" °C", font = font55, fill = 0)
+        draw.text((250, 120), "Max: " + str(currentWeather.maxTemp) + u" °C", font = font24, fill = 0)
+        draw.text((250, 150), "Min: " + str(currentWeather.minTemp) + u" °C", font = font24, fill = 0)
+        draw.text((250, 180), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
+
+        #layout lines
+        draw.line((0, 350, 448, 350), fill = 0)
+        draw.line((149, 350, 149, 600), fill = 0)
+        draw.line((298, 350, 298, 600), fill = 0)
+
+        #forecast
+
+        forecast = weatherdata.getForecast()
 
 
         epd.display(epd.getbuffer(Limage))
