@@ -1,6 +1,7 @@
 import requests
 import json
 from CurrentWeather import CurrentWeather
+from ForecastData import ForecastData
 
 class WeatherData:
 
@@ -10,7 +11,7 @@ class WeatherData:
         self.key = key
     
 
-    def getData(self):
+    def getCurrentWeather(self):
         resp = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + self.latitude + '&lon=' + self.longitude + '&appid='+ self.key)
 
         data = json.loads(resp.text)
@@ -33,6 +34,21 @@ class WeatherData:
 
         weather = CurrentWeather(currentTemp, windSpeed, maxTemp, minTemp, currentIcon)
         return weather
+
+    def getForecast(self):
+        resp = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + self.latitude + '&lon=' + self.longitude + '&appid='+ self.key)
+
+        data = json.loads(resp.text)
+        forecastData = data['daily']
+
+        forecast = [ForecastData(forecastData[1]['wind_speed'], forecastData[1]['temp']['max'] - 273.15, forecastData[1]['temp']['min'] - 273.15, forecastData[1]['weather']['icon']),
+                    ForecastData(forecastData[2]['wind_speed'], forecastData[2]['temp']['max'] - 273.15, forecastData[2]['temp']['min'] - 273.15, forecastData[2]['weather']['icon']),
+                    ForecastData(forecastData[3]['wind_speed'], forecastData[3]['temp']['max'] - 273.15, forecastData[3]['temp']['min'] - 273.15, forecastData[3]['weather']['icon'])]
+
+        return forecast
+
+
+        
 
         
         
