@@ -47,9 +47,6 @@ class WeatherData:
 
         return forecast
 
-
-        
-
         
         
     
