@@ -85,7 +85,7 @@ try:
 
         #forecast
 
-        forecast = weatherdata.getForecast()
+        #forecast = weatherdata.getForecast()
 
 
         epd.display(epd.getbuffer(Limage))
