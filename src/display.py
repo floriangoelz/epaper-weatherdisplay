@@ -53,6 +53,16 @@ try:
         "50n": "mist"
     }
 
+    weekdays = {
+        0: "Mo",
+        1: "Di",
+        2: "Mi",
+        3: "Do",
+        4: "Fr",
+        5: "Sa",
+        6: "So"
+    }
+
     while(1):
         
         # Drawing on the Horizontal image
@@ -64,19 +74,19 @@ try:
         currentWeather = weatherdata.getCurrentWeather()
 
         #date
-        #today = date.today()
-        #draw.text((20, 10), str(today.day) + "." + str(today.month) + "." + str(today.year), font = font28, fill = 0)
+        today = date.today()
+        draw.text((20, 10), "Hemsbach     " + weekdays[today.weekday()] + " " + str(today.day) + "." + str(today.month) + "." + str(today.year), font = font28, fill = 0)
 
         #icon
         logging.info("read icon bmp file")
         iconbmp = Image.open(os.path.join(iconsdir, icons[currentWeather.currentIcon] + '.bmp'))
-        Limage.paste(iconbmp, (5, 20))
+        Limage.paste(iconbmp, (5, 60))
 
         #temperatures
-        draw.text((250, 30), str(currentWeather.currentTemp) + u" °C", font = font55, fill = 0)
-        draw.text((250, 120), "Max: " + str(currentWeather.maxTemp) + u" °C", font = font24, fill = 0)
-        draw.text((250, 150), "Min: " + str(currentWeather.minTemp) + u" °C", font = font24, fill = 0)
-        draw.text((250, 180), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
+        draw.text((250, 70), str(currentWeather.currentTemp) + u" °C", font = font55, fill = 0)
+        draw.text((250, 160), "Max: " + str(currentWeather.maxTemp) + u" °C", font = font24, fill = 0)
+        draw.text((250, 190), "Min: " + str(currentWeather.minTemp) + u" °C", font = font24, fill = 0)
+        draw.text((250, 220), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
 
         #layout lines
         draw.line((0, 350, 448, 350), fill = 0)
