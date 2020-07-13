@@ -81,13 +81,13 @@ try:
         #icon
         logging.info("read icon bmp file")
         iconbmp = Image.open(os.path.join(iconsdir, icons[currentWeather.currentIcon] + '.bmp'))
-        Limage.paste(iconbmp, (5, 60))
+        Limage.paste(iconbmp, (5, 90))
 
         #temperatures
-        draw.text((250, 70), str(currentWeather.currentTemp) + u" °C", font = font55, fill = 0)
-        draw.text((250, 160), "Max: " + str(currentWeather.maxTemp) + u" °C", font = font24, fill = 0)
-        draw.text((250, 190), "Min: " + str(currentWeather.minTemp) + u" °C", font = font24, fill = 0)
-        draw.text((250, 220), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
+        draw.text((250, 100), str(currentWeather.currentTemp) + u" °C", font = font55, fill = 0)
+        draw.text((250, 190), "Max: " + str(currentWeather.maxTemp) + u" °C", font = font24, fill = 0)
+        draw.text((250, 220), "Min: " + str(currentWeather.minTemp) + u" °C", font = font24, fill = 0)
+        draw.text((250, 250), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
 
         #layout lines
         draw.line((0, 350, 448, 350), fill = 0)
