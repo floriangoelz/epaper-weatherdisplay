@@ -30,6 +30,7 @@ try:
     
     font24 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 24)
     font28 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 28)
+    font32 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 32)
     font55 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 55)
 
     icons = {
@@ -75,7 +76,7 @@ try:
 
         #date
         today = date.today()
-        draw.text((20, 10), "Hemsbach     " + weekdays[today.weekday()] + " " + str(today.day) + "." + str(today.month) + "." + str(today.year), font = font28, fill = 0)
+        draw.text((20, 10), "Hemsbach          " + weekdays[today.weekday()] + " " + str(today.day) + "." + str(today.month) + "." + str(today.year), font = font28, fill = 0)
 
         #icon
         logging.info("read icon bmp file")
@@ -99,7 +100,7 @@ try:
 
 
         epd.display(epd.getbuffer(Limage))
-        time.sleep(300)
+        time.sleep(900)
     
     
 except IOError as e:
