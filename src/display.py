@@ -92,7 +92,7 @@ try:
         draw.text((250, 250), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
 
         #layout lines
-        draw.line((0, 350, 448, 350), fill = 0)
+        draw.line((0, 340, 448, 340), fill = 0)
         draw.line((149, 350, 149, 600), fill = 0)
         draw.line((298, 350, 298, 600), fill = 0)
 
@@ -100,9 +100,9 @@ try:
         forecast = weatherdata.getForecast()
 
         #weekdays
-        draw.text((12, 10), weekdays[(today.weekday() + 1) % 7], font = font32b, fill = 0)
-        draw.text((161, 10), weekdays[(today.weekday() + 2) % 7], font = font32b, fill = 0)
-        draw.text((310, 10), weekdays[(today.weekday() + 3) % 7], font = font32b, fill = 0)
+        draw.text((12, 345), weekdays[(today.weekday() + 1) % 7], font = font32b, fill = 0)
+        draw.text((161, 345), weekdays[(today.weekday() + 2) % 7], font = font32b, fill = 0)
+        draw.text((310, 345), weekdays[(today.weekday() + 3) % 7], font = font32b, fill = 0)
 
         #icons
         forecastIcon0 = Image.open(os.path.join(smalliconsdir, icons[forecast[0].icon] + '.bmp'))
@@ -114,16 +114,13 @@ try:
 
         #temperatures
         draw.text((12, 495), str(forecast[0].maxTemp) + u" °C", font = font32b, fill = 0)
-        draw.text((12, 525), str(forecast[0].minTemp) + u" °C", font = font28, fill = 0)
-        draw.text((12, 555), str(forecast[0].windSpeed) + u" km/h", font = font28, fill = 0)
+        draw.text((12, 535), str(forecast[0].minTemp) + u" °C", font = font28, fill = 0)
 
         draw.text((161, 495), str(forecast[1].maxTemp) + u" °C", font = font32b, fill = 0)
-        draw.text((161, 525), str(forecast[1].minTemp) + u" °C", font = font28, fill = 0)
-        draw.text((161, 555), str(forecast[1].windSpeed) + u" km/h", font = font28, fill = 0)
+        draw.text((161, 535), str(forecast[1].minTemp) + u" °C", font = font28, fill = 0)
 
         draw.text((310, 495), str(forecast[2].maxTemp) + u" °C", font = font32b, fill = 0)
-        draw.text((310, 525), str(forecast[2].minTemp) + u" °C", font = font28, fill = 0)
-        draw.text((310, 555), str(forecast[2].windSpeed) + u" km/h", font = font28, fill = 0)
+        draw.text((310, 535), str(forecast[2].minTemp) + u" °C", font = font28, fill = 0)
 
         epd.display(epd.getbuffer(Limage))
         time.sleep(900)
