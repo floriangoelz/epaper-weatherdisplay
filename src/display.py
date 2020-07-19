@@ -78,7 +78,7 @@ try:
 
         #date
         today = date.today()
-        draw.text((20, 10), "Hemsbach          " + weekdays[today.weekday()] + " " + str(today.day) + "." + str(today.month) + "." + str(today.year), font = font32, fill = 0)
+        draw.text((20, 10), "Hemsbach        " + weekdays[today.weekday()] + " " + str(today.day) + "." + str(today.month) + "." + str(today.year), font = font32b, fill = 0)
 
         #icon
         logging.info("read icon bmp file")
@@ -99,26 +99,31 @@ try:
         #forecast
         forecast = weatherdata.getForecast()
 
+        #weekdays
+        draw.text((12, 10), weekdays[today.weekday() + 1 % 7])
+        draw.text((161, 10), weekdays[today.weekday() + 2 % 7])
+        draw.text((310, 10), weekdays[today.weekday() + 3 % 7])
+
         #icons
         forecastIcon0 = Image.open(os.path.join(smalliconsdir, icons[forecast[0].icon] + '.bmp'))
         forecastIcon1 = Image.open(os.path.join(smalliconsdir, icons[forecast[1].icon] + '.bmp'))
         forecastIcon2 = Image.open(os.path.join(smalliconsdir, icons[forecast[2].icon] + '.bmp'))
-        Limage.paste(forecastIcon0, (12, 360))
-        Limage.paste(forecastIcon0, (161, 360))
-        Limage.paste(forecastIcon0, (310, 360))
+        Limage.paste(forecastIcon0, (12, 370))
+        Limage.paste(forecastIcon0, (161, 370))
+        Limage.paste(forecastIcon0, (310, 370))
 
         #temperatures
-        draw.text((12, 505), str(forecast[0].maxTemp) + u" °C", font = font32b, fill = 0)
+        draw.text((12, 495), str(forecast[0].maxTemp) + u" °C", font = font32b, fill = 0)
         draw.text((12, 525), str(forecast[0].minTemp) + u" °C", font = font28, fill = 0)
-        draw.text((12, 545), str(forecast[0].windSpeed) + u" km/h", font = font28, fill = 0)
+        draw.text((12, 555), str(forecast[0].windSpeed) + u" km/h", font = font28, fill = 0)
 
-        draw.text((161, 505), str(forecast[1].maxTemp) + u" °C", font = font32b, fill = 0)
+        draw.text((161, 495), str(forecast[1].maxTemp) + u" °C", font = font32b, fill = 0)
         draw.text((161, 525), str(forecast[1].minTemp) + u" °C", font = font28, fill = 0)
-        draw.text((161, 545), str(forecast[1].windSpeed) + u" km/h", font = font28, fill = 0)
+        draw.text((161, 555), str(forecast[1].windSpeed) + u" km/h", font = font28, fill = 0)
 
-        draw.text((310, 505), str(forecast[0].maxTemp) + u" °C", font = font32b, fill = 0)
-        draw.text((310, 525), str(forecast[0].minTemp) + u" °C", font = font28, fill = 0)
-        draw.text((310, 545), str(forecast[0].windSpeed) + u" km/h", font = font28, fill = 0)
+        draw.text((310, 495), str(forecast[2].maxTemp) + u" °C", font = font32b, fill = 0)
+        draw.text((310, 525), str(forecast[2].minTemp) + u" °C", font = font28, fill = 0)
+        draw.text((310, 555), str(forecast[2].windSpeed) + u" km/h", font = font28, fill = 0)
 
         epd.display(epd.getbuffer(Limage))
         time.sleep(900)
