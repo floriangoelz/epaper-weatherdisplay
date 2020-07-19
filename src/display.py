@@ -100,9 +100,9 @@ try:
         forecast = weatherdata.getForecast()
 
         #weekdays
-        draw.text((12, 10), weekdays[today.weekday() + 1 % 7], font = font32b, fill = 0)
-        draw.text((161, 10), weekdays[today.weekday() + 2 % 7], font = font32b, fill = 0)
-        draw.text((310, 10), weekdays[today.weekday() + 3 % 7], font = font32b, fill = 0)
+        draw.text((12, 10), weekdays[(today.weekday() + 1) % 7], font = font32b, fill = 0)
+        draw.text((161, 10), weekdays[(today.weekday() + 2) % 7], font = font32b, fill = 0)
+        draw.text((310, 10), weekdays[(today.weekday() + 3) % 7], font = font32b, fill = 0)
 
         #icons
         forecastIcon0 = Image.open(os.path.join(smalliconsdir, icons[forecast[0].icon] + '.bmp'))
