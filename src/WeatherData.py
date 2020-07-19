@@ -41,9 +41,9 @@ class WeatherData:
         data = json.loads(resp.text)
         forecastData = data['daily']
 
-        forecast = [ForecastData(forecastData[1]['wind_speed'], forecastData[1]['temp']['max'] - 273.15, forecastData[1]['temp']['min'] - 273.15, forecastData[1]['weather']['icon']),
-                    ForecastData(forecastData[2]['wind_speed'], forecastData[2]['temp']['max'] - 273.15, forecastData[2]['temp']['min'] - 273.15, forecastData[2]['weather']['icon']),
-                    ForecastData(forecastData[3]['wind_speed'], forecastData[3]['temp']['max'] - 273.15, forecastData[3]['temp']['min'] - 273.15, forecastData[3]['weather']['icon'])]
+        forecast = [ForecastData(round(forecastData[1]['wind_speed'], 1), round(forecastData[1]['temp']['max'] - 273.15, 1), round(forecastData[1]['temp']['min'] - 273.15, 1), forecastData[1]['weather'][0]['icon']),
+                    ForecastData(round(forecastData[2]['wind_speed'], 1), round(forecastData[2]['temp']['max'] - 273.15, 1), round(forecastData[2]['temp']['min'] - 273.15, 1), forecastData[2]['weather'][0]['icon']),
+                    ForecastData(round(forecastData[3]['wind_speed'], 1), round(forecastData[3]['temp']['max'] - 273.15, 1), round(forecastData[3]['temp']['min'] - 273.15, 1), forecastData[3]['weather'][0]['icon'])]
 
         return forecast
 

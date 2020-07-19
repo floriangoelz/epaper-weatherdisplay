@@ -7,6 +7,7 @@ from datetime import date
 import sys
 import os
 iconsdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'icons')
+smalliconsdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'small_icons')
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
 fontdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'fonts')
 if os.path.exists(libdir):
@@ -31,7 +32,8 @@ try:
     font24 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 24)
     font28 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 28)
     font32 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 32)
-    font55 = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Medium.ttf'), 55)
+    font55b = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Bold.ttf'), 55)
+    font32b = ImageFont.truetype(os.path.join(fontdir, 'Roboto-Bold.ttf'), 32)
 
     icons = {
         "01d": "clear",
@@ -76,7 +78,7 @@ try:
 
         #date
         today = date.today()
-        draw.text((20, 10), "Hemsbach          " + weekdays[today.weekday()] + " " + str(today.day) + "." + str(today.month) + "." + str(today.year), font = font28, fill = 0)
+        draw.text((20, 10), "Hemsbach          " + weekdays[today.weekday()] + " " + str(today.day) + "." + str(today.month) + "." + str(today.year), font = font32, fill = 0)
 
         #icon
         logging.info("read icon bmp file")
@@ -84,7 +86,7 @@ try:
         Limage.paste(iconbmp, (5, 90))
 
         #temperatures
-        draw.text((250, 100), str(currentWeather.currentTemp) + u" °C", font = font55, fill = 0)
+        draw.text((250, 100), str(currentWeather.currentTemp) + u" °C", font = font55b, fill = 0)
         draw.text((250, 190), "Max: " + str(currentWeather.maxTemp) + u" °C", font = font24, fill = 0)
         draw.text((250, 220), "Min: " + str(currentWeather.minTemp) + u" °C", font = font24, fill = 0)
         draw.text((250, 250), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
@@ -95,9 +97,28 @@ try:
         draw.line((298, 350, 298, 600), fill = 0)
 
         #forecast
+        forecast = weatherdata.getForecast()
 
-        #forecast = weatherdata.getForecast()
+        #icons
+        forecastIcon0 = Image.open(os.path.join(smalliconsdir, icons[forecast[0].icon] + '.bmp'))
+        forecastIcon1 = Image.open(os.path.join(smalliconsdir, icons[forecast[1].icon] + '.bmp'))
+        forecastIcon2 = Image.open(os.path.join(smalliconsdir, icons[forecast[2].icon] + '.bmp'))
+        Limage.paste(forecastIcon0, (12, 360))
+        Limage.paste(forecastIcon0, (161, 360))
+        Limage.paste(forecastIcon0, (310, 360))
 
+        #temperatures
+        draw.text((12, 505), str(forecast[0].maxTemp) + u" °C", font = font32b, fill = 0)
+        draw.text((12, 525), str(forecast[0].minTemp) + u" °C", font = font28, fill = 0)
+        draw.text((12, 545), str(forecast[0].windSpeed) + u" km/h", font = font28, fill = 0)
+
+        draw.text((161, 505), str(forecast[1].maxTemp) + u" °C", font = font32b, fill = 0)
+        draw.text((161, 525), str(forecast[1].minTemp) + u" °C", font = font28, fill = 0)
+        draw.text((161, 545), str(forecast[1].windSpeed) + u" km/h", font = font28, fill = 0)
+
+        draw.text((310, 505), str(forecast[0].maxTemp) + u" °C", font = font32b, fill = 0)
+        draw.text((310, 525), str(forecast[0].minTemp) + u" °C", font = font28, fill = 0)
+        draw.text((310, 545), str(forecast[0].windSpeed) + u" km/h", font = font28, fill = 0)
 
         epd.display(epd.getbuffer(Limage))
         time.sleep(900)
