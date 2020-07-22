@@ -109,8 +109,8 @@ try:
         forecastIcon1 = Image.open(os.path.join(smalliconsdir, icons[forecast[1].icon] + '.bmp'))
         forecastIcon2 = Image.open(os.path.join(smalliconsdir, icons[forecast[2].icon] + '.bmp'))
         Limage.paste(forecastIcon0, (12, 380))
-        Limage.paste(forecastIcon0, (161, 380))
-        Limage.paste(forecastIcon0, (310, 380))
+        Limage.paste(forecastIcon1, (161, 380))
+        Limage.paste(forecastIcon2, (310, 380))
 
         #temperatures
         draw.text((12, 505), str(forecast[0].maxTemp) + u" °C", font = font32b, fill = 0)
