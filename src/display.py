@@ -73,7 +73,7 @@ try:
         draw = ImageDraw.Draw(Limage)
         
         #get current weather data
-        weatherdata = WeatherData('49.591', '8.646', 'bcdf63a0553e42805e8f1111bcbd94e5')
+        weatherdata = WeatherData('49.591', '8.646', 'apitoken')
         currentWeather = weatherdata.getCurrentWeather()
 
         #date
