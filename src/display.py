@@ -6,6 +6,8 @@ from CurrentWeather import CurrentWeather
 from datetime import date
 import sys
 import os
+import json
+
 iconsdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'icons')
 smalliconsdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'small_icons')
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
@@ -78,6 +80,10 @@ try:
         6: "So"
     }
 
+    #read config data
+    config = open('config.json', 'r')
+    config = json.loads(config.read())
+
     while(1):
         
         # Drawing on the Horizontal image
@@ -85,41 +91,44 @@ try:
         draw = ImageDraw.Draw(Limage)
         
         #get current weather data
-        weatherdata = WeatherData('49.591', '8.646', 'apitoken')
+        weatherdata = WeatherData(config['lan'], config['lon'], config['api_key'])
         currentWeather = weatherdata.getCurrentWeather()
 
-        #date
+        #get location name
+        location = weatherdata.getLocationName()
+
+        #print location and date
         today = date.today()
         day = str(today.day) if today.day > 9 else "0" + str(today.day)
         month = str(today.month) if today.month > 9 else "0" + str(today.month)
-        draw.text((20, 10), "Hemsbach", font = font32b, fill = 0)
+        draw.text((20, 10), location, font = font32b, fill = 0)
         draw.text((width/2, 10), weekdays[today.weekday()] + " " + day + "." + month + "." + str(today.year), font = font32b, fill = 0)
 
-        #icon
+        #print icons
         logging.info("read icon bmp file")
         iconbmp = Image.open(os.path.join(iconsdir, icons[currentWeather.currentIcon] + '.bmp'))
         Limage.paste(iconbmp, (5, 90))
 
-        #temperatures
+        #print temperatures
         draw.text((250, 100), str(currentWeather.currentTemp) + u" °C", font = font55b, fill = 0)
         draw.text((250, 190), "Max: " + str(currentWeather.maxTemp) + u" °C", font = font24, fill = 0)
         draw.text((250, 220), "Min: " + str(currentWeather.minTemp) + u" °C", font = font24, fill = 0)
         draw.text((250, 250), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
 
-        #layout lines
+        #print layout lines
         draw.line((0, 340, width, 340), fill = 0)
         draw.line((149, 350, 149, height), fill = 0)
         draw.line((298, 350, 298, height), fill = 0)
 
-        #forecast
+        #get forecast
         forecast = weatherdata.getForecast()
 
-        #weekdays
+        #print weekdays
         draw.text((12, 345), weekdays[(today.weekday() + 1) % 7], font = font32b, fill = 0)
         draw.text((161, 345), weekdays[(today.weekday() + 2) % 7], font = font32b, fill = 0)
         draw.text((310, 345), weekdays[(today.weekday() + 3) % 7], font = font32b, fill = 0)
 
-        #icons
+        #print icons
         forecastIcon0 = Image.open(os.path.join(smalliconsdir, icons[forecast[0].icon] + '.bmp'))
         forecastIcon1 = Image.open(os.path.join(smalliconsdir, icons[forecast[1].icon] + '.bmp'))
         forecastIcon2 = Image.open(os.path.join(smalliconsdir, icons[forecast[2].icon] + '.bmp'))
@@ -127,7 +136,7 @@ try:
         Limage.paste(forecastIcon1, (161, 380))
         Limage.paste(forecastIcon2, (310, 380))
 
-        #temperatures
+        #print temperatures
         draw.text((12, 505), str(forecast[0].maxTemp) + u" °C", font = font32b, fill = 0)
         draw.text((12, 545), str(forecast[0].minTemp) + u" °C", font = font28, fill = 0)
 
