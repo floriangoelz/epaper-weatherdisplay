@@ -91,7 +91,7 @@ try:
         draw = ImageDraw.Draw(Limage)
         
         #get current weather data
-        weatherdata = WeatherData(config['lan'], config['lon'], config['api_key'])
+        weatherdata = WeatherData(config['lat'], config['lon'], config['api_key'])
         currentWeather = weatherdata.getCurrentWeather()
 
         #get location name
