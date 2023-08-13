@@ -46,6 +46,11 @@ class WeatherData:
                     ForecastData(round(forecastData[3]['wind_speed'], 1), round(forecastData[3]['temp']['max'] - 273.15, 1), round(forecastData[3]['temp']['min'] - 273.15, 1), forecastData[3]['weather'][0]['icon'])]
 
         return forecast
+    
+    def getLocationName(self):
+        resp = requests.get('https://api.openweathermap.org/geo/1.0/reverse?lat=' + self.latitude + '&lon=' + self.longitude + '&limit=1&appid='+ self.key)
+        data = json.loads(resp.text)
+        return data[0]['name']
 
         
         
