@@ -84,6 +84,9 @@ try:
     config = open('config.json', 'r')
     config = json.loads(config.read())
 
+    #get location name
+    location = weatherdata.getLocationName()
+
     while(1):
         
         # Drawing on the Horizontal image
@@ -93,9 +96,6 @@ try:
         #get current weather data
         weatherdata = WeatherData(str(config['lat']), str(config['lon']), config['api_key'])
         currentWeather = weatherdata.getCurrentWeather()
-
-        #get location name
-        location = weatherdata.getLocationName()
 
         #print location and date
         today = date.today()
