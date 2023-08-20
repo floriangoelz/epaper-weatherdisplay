@@ -81,10 +81,11 @@ try:
     }
 
     #read config data
-    config = open('config.json', 'r')
+    config = open('/home/pi/epaper-weatherdisplay/src/config.json', 'r')
     config = json.loads(config.read())
 
     #get location name
+    weatherdata = WeatherData(str(config['lat']), str(config['lon']), config['api_key'])
     location = weatherdata.getLocationName()
 
     while(1):
