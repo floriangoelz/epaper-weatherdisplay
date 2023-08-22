@@ -124,16 +124,16 @@ try:
         critical_air_polution = list()
         for pollutant, values in air_polution.items():
             if values['warning']:
-                critical_air_polution += [pollutant + ': ' + str(values['value']) + 'ppm ' + polution_levels_german[values['level']]]
+                critical_air_polution += [pollutants[pollutant] + ': ' + str(values['value']) + 'ppm ' + polution_levels_german[values['level']]]
 
         if len(critical_air_polution):
             critical_air_polution_text = ', '.join(critical_air_polution)
-            draw.text((20, 40), critical_air_polution, font = font24, fill = 0)
+            draw.text((20, 55), critical_air_polution_text, font = font24, fill = 0)
 
 
         #print icons
         logging.info("read icon bmp file")
-        iconbmp = Image.open(os.path.join(iconsdir, icons[current_weather.currentIcon] + '.bmp'))
+        iconbmp = Image.open(os.path.join(iconsdir, icons[current_weather.current_icon] + '.bmp'))
         Limage.paste(iconbmp, (5, 90))
 
         #print temperatures
