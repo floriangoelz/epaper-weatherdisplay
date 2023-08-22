@@ -80,23 +80,37 @@ try:
         6: "So"
     }
 
+    pollutants = {
+        'no2': u'NO\u2082',
+        'pm10': u'PM\u2081\u2080',
+        'o3': u'O\u2083',
+        'pm2_5': u'PM\u2082.\u2085'
+    }
+
+    polution_levels_german = {
+        0: 'keine',
+        1: 'niedrig',
+        2: 'mittel',
+        3: 'hoch'
+    }
+
     #read config data
     config = open('/home/pi/epaper-weatherdisplay/src/config.json', 'r')
     config = json.loads(config.read())
 
     #get location name
-    weatherdata = WeatherData(str(config['lat']), str(config['lon']), config['api_key'])
-    location = weatherdata.getLocationName()
+    weather_data = WeatherData(str(config['lat']), str(config['lon']), config['api_key'])
+    location = weather_data.get_location_name()
 
     while(1):
         
-        # Drawing on the Horizontal image
+        #Drawing on the Horizontal image
         Limage = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
         draw = ImageDraw.Draw(Limage)
         
         #get current weather data
-        weatherdata = WeatherData(str(config['lat']), str(config['lon']), config['api_key'])
-        currentWeather = weatherdata.getCurrentWeather()
+        weather_data = WeatherData(str(config['lat']), str(config['lon']), config['api_key'])
+        current_weather = weather_data.get_current_weather()
 
         #print location and date
         today = date.today()
@@ -105,16 +119,28 @@ try:
         draw.text((20, 10), location, font = font32b, fill = 0)
         draw.text((width/2, 10), weekdays[today.weekday()] + " " + day + "." + month + "." + str(today.year), font = font32b, fill = 0)
 
+        #print air polution warning
+        air_polution = weather_data.get_air_polution()
+        critical_air_polution = list()
+        for pollutant, values in air_polution.items():
+            if values['warning']:
+                critical_air_polution += [pollutant + ': ' + str(values['value']) + 'ppm ' + polution_levels_german[values['level']]]
+
+        if len(critical_air_polution):
+            critical_air_polution_text = ', '.join(critical_air_polution)
+            draw.text((20, 40), critical_air_polution, font = font24, fill = 0)
+
+
         #print icons
         logging.info("read icon bmp file")
-        iconbmp = Image.open(os.path.join(iconsdir, icons[currentWeather.currentIcon] + '.bmp'))
+        iconbmp = Image.open(os.path.join(iconsdir, icons[current_weather.currentIcon] + '.bmp'))
         Limage.paste(iconbmp, (5, 90))
 
         #print temperatures
-        draw.text((250, 100), str(currentWeather.currentTemp) + u" °C", font = font55b, fill = 0)
-        draw.text((250, 190), "Max: " + str(currentWeather.maxTemp) + u" °C", font = font24, fill = 0)
-        draw.text((250, 220), "Min: " + str(currentWeather.minTemp) + u" °C", font = font24, fill = 0)
-        draw.text((250, 250), "Wind: " + str(currentWeather.windSpeed) + " km/h", font = font24, fill = 0)
+        draw.text((250, 100), str(current_weather.current_temp) + u" °C", font = font55b, fill = 0)
+        draw.text((250, 190), "Max: " + str(current_weather.max_temp) + u" °C", font = font24, fill = 0)
+        draw.text((250, 220), "Min: " + str(current_weather.min_temp) + u" °C", font = font24, fill = 0)
+        draw.text((250, 250), "Wind: " + str(current_weather.wind_speed) + " km/h", font = font24, fill = 0)
 
         #print layout lines
         draw.line((0, 340, width, 340), fill = 0)
@@ -122,7 +148,7 @@ try:
         draw.line((298, 350, 298, height), fill = 0)
 
         #get forecast
-        forecast = weatherdata.getForecast()
+        forecast = weather_data.get_forecast()
 
         #print weekdays
         draw.text((12, 345), weekdays[(today.weekday() + 1) % 7], font = font32b, fill = 0)
@@ -130,22 +156,22 @@ try:
         draw.text((310, 345), weekdays[(today.weekday() + 3) % 7], font = font32b, fill = 0)
 
         #print icons
-        forecastIcon0 = Image.open(os.path.join(smalliconsdir, icons[forecast[0].icon] + '.bmp'))
-        forecastIcon1 = Image.open(os.path.join(smalliconsdir, icons[forecast[1].icon] + '.bmp'))
-        forecastIcon2 = Image.open(os.path.join(smalliconsdir, icons[forecast[2].icon] + '.bmp'))
-        Limage.paste(forecastIcon0, (12, 380))
-        Limage.paste(forecastIcon1, (161, 380))
-        Limage.paste(forecastIcon2, (310, 380))
+        forecast_icon_0 = Image.open(os.path.join(smalliconsdir, icons[forecast[0].icon] + '.bmp'))
+        forecast_icon_1 = Image.open(os.path.join(smalliconsdir, icons[forecast[1].icon] + '.bmp'))
+        forecast_icon_2 = Image.open(os.path.join(smalliconsdir, icons[forecast[2].icon] + '.bmp'))
+        Limage.paste(forecast_icon_0, (12, 380))
+        Limage.paste(forecast_icon_1, (161, 380))
+        Limage.paste(forecast_icon_2, (310, 380))
 
         #print temperatures
-        draw.text((12, 505), str(forecast[0].maxTemp) + u" °C", font = font32b, fill = 0)
-        draw.text((12, 545), str(forecast[0].minTemp) + u" °C", font = font28, fill = 0)
+        draw.text((12, 505), str(forecast[0].max_temp) + u" °C", font = font32b, fill = 0)
+        draw.text((12, 545), str(forecast[0].min_temp) + u" °C", font = font28, fill = 0)
 
-        draw.text((161, 505), str(forecast[1].maxTemp) + u" °C", font = font32b, fill = 0)
-        draw.text((161, 545), str(forecast[1].minTemp) + u" °C", font = font28, fill = 0)
+        draw.text((161, 505), str(forecast[1].max_temp) + u" °C", font = font32b, fill = 0)
+        draw.text((161, 545), str(forecast[1].min_temp) + u" °C", font = font28, fill = 0)
 
-        draw.text((310, 505), str(forecast[2].maxTemp) + u" °C", font = font32b, fill = 0)
-        draw.text((310, 545), str(forecast[2].minTemp) + u" °C", font = font28, fill = 0)
+        draw.text((310, 505), str(forecast[2].max_temp) + u" °C", font = font32b, fill = 0)
+        draw.text((310, 545), str(forecast[2].min_temp) + u" °C", font = font28, fill = 0)
 
         epd.display(epd.getbuffer(Limage))
         time.sleep(900)
