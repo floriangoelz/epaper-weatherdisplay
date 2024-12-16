@@ -11,12 +11,12 @@ class WeatherData:
         self.key = key
 
     def __request_data(self, url):
-        resp = requests.get(url + '?lat=' + self.latitude + '&lon=' + self.longitude + '&limit=1&appid='+ self.key)
+        resp = requests.get(url + '?lat=' + self.latitude + '&lon=' + self.longitude + '&appid='+ self.key)
         return json.loads(resp.text)
     
 
     def get_current_weather(self):
-        data = self.__request_data('https://api.openweathermap.org/data/2.5/onecall')
+        data = self.__request_data('https://api.openweathermap.org/data/3.0/onecall')
         current_data = data['current']
 
         current_temp = current_data['temp']
@@ -38,7 +38,7 @@ class WeatherData:
         return weather
 
     def get_forecast(self):
-        data = self.__request_data('https://api.openweathermap.org/data/2.5/onecall')
+        data = self.__request_data('https://api.openweathermap.org/data/3.0/onecall')
         forecast_data = data['daily']
 
         forecast = [ForecastData(round(forecast_data[1]['wind_speed'], 1), round(forecast_data[1]['temp']['max'] - 273.15, 1), round(forecast_data[1]['temp']['min'] - 273.15, 1), forecast_data[1]['weather'][0]['icon']),
