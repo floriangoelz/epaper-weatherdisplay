@@ -1,1 +1,6 @@
-log
+__pycache__/
+src/config.json
+
+*.pyc
+*.pyo
+
