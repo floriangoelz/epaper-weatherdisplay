@@ -81,17 +81,17 @@ try:
     }
 
     pollutants = {
-        'no2': u'NO\u2082',
-        'pm10': u'PM\u2081\u2080',
-        'o3': u'O\u2083',
-        'pm2_5': u'PM\u2082.\u2085'
+        'no2': 'NO2',
+        'pm10': 'PM10',
+        'o3': 'O3',
+        'pm2_5': 'PM2.5'
     }
 
     polution_levels_german = {
-        0: 'keine',
-        1: 'niedrig',
-        2: 'mittel',
-        3: 'hoch'
+        0: '',
+        1: '(L)',
+        2: '(M)',
+        3: '(H)'
     }
 
     #read config data
@@ -124,7 +124,7 @@ try:
         critical_air_polution = list()
         for pollutant, values in air_polution.items():
             if values['warning']:
-                critical_air_polution += [pollutants[pollutant] + ': ' + str(values['value']) + 'ppm ' + polution_levels_german[values['level']]]
+                critical_air_polution += [pollutants[pollutant] + ': ' + str(values['value']) + u'\u03bcg/m\u00b3' + polution_levels_german[values['level']]]
 
         if len(critical_air_polution):
             critical_air_polution_text = ', '.join(critical_air_polution)
