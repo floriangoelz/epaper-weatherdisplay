@@ -124,7 +124,8 @@ try:
         critical_air_polution = list()
         for pollutant, values in air_polution.items():
             if values['warning']:
-                critical_air_polution += [pollutants[pollutant] + ': ' + str(values['value']) + u'\u03bcg/m\u00b3' + polution_levels_german[values['level']]]
+                #critical_air_polution += [pollutants[pollutant] + ': ' + str(values['value']) + u'\u03bcg/m\u00b3' + polution_levels_german[values['level']]]
+		critical_air_polution += [pollutants[pollutant] + ': ' + polution_levels_german[values['level']]]
 
         if len(critical_air_polution):
             critical_air_polution_text = ', '.join(critical_air_polution)
